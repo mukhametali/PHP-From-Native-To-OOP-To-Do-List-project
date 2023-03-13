@@ -1,3 +1,16 @@
+<?php
+//1. Connect to DB
+$pdo = new PDO("mysql:host=localhost; dbname=test_db","root","mysql");
+
+//2. Prepare the statement
+$sql = "SELECT * FROM tasks";
+$statement = $pdo->prepare($sql);
+$statement->execute();
+$tasks = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +22,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>All Tasks</h1>
-                <a href="#" class="btn btn-success">Add Task</a>
+                <a href="create.php" class="btn btn-success">Add Task</a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -18,16 +31,18 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Go to the store</td>
+                    <?php foreach ($tasks as $task): ?>
+                    <tr>
+                            <td><?=$task['id']?></td>
+                            <td><?=$task['title']?></td>
                             <td>
-                                <a href="#" class="btn btn-warning">Edit</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="show.php?id=<?=$task['id'];?>" class="btn btn-info">Show</a>
+                                <a href="edit.php?id=<?=$task['id'];?>" class="btn btn-warning">Edit</a>
+                                <a onclick="return confirm('Are you sure?')" href="delete.php?id=<?=$task['id']?>" class="btn btn-danger">Delete</a>
                             </td>
-                        </tr>
+                    </tr>
+                    <? endforeach;?>
                     </tbody>
                 </table>
             </div>
