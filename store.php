@@ -1,8 +1,11 @@
 <?php
 
-$pdo = new PDO("mysql:host=localhost;dbname=test_db","root","mysql");
-$sql = "INSERT INTO tasks (title, content) VALUES (:title, :content)";
-$statement = $pdo->prepare($sql);
-$result = $statement ->execute($_POST);
+require "database/QueryBuilder.php";
+
+$db = new QueryBuilder;
+
+
+$db->addTask($_POST);
 
 header("Location: index.php"); exit;
+

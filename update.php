@@ -1,14 +1,15 @@
 <?php
 
+require "database/QueryBuilder.php";
+
+$db = new QueryBuilder;
+
 $data = [
     "id"        => $_GET['id'],
     "title"     => $_POST['title'],
     "content"   => $_POST['content']
 ];
 
-$pdo = new PDO("mysql:host=localhost; dbname=test_db","root","mysql");
-$sql = "UPDATE tasks SET title=:title, content=:content WHERE id=:id";
-$statement = $pdo->prepare($sql);
-$result = $statement->execute($data);
+$db->updateTask($data);
 
-header("Location: index.php");
+header("Location: index.php"); exit();

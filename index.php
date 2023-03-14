@@ -1,12 +1,11 @@
 <?php
-//1. Connect to DB
-$pdo = new PDO("mysql:host=localhost; dbname=test_db","root","mysql");
 
-//2. Prepare the statement
-$sql = "SELECT * FROM tasks";
-$statement = $pdo->prepare($sql);
-$statement->execute();
-$tasks = $statement->fetchAll(PDO::FETCH_ASSOC);
+require "database/QueryBuilder.php";
+
+$db = new QueryBuilder;
+
+$tasks = $db->getAllTasks();
+
 
 
 ?>
