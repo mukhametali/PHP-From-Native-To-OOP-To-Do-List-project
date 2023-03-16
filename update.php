@@ -10,6 +10,6 @@ $data = [
     "content"   => $_POST['content']
 ];
 
-$db->updateTask($data);
+$db->update("tasks",$data);
 
 header("Location: index.php"); exit();

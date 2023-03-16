@@ -4,8 +4,12 @@ require "database/QueryBuilder.php";
 
 $db = new QueryBuilder;
 
+$data = [
+    "title" => $_POST["title"],
+    "content" => $_POST["content"]
+];
 
-$db->addTask($_POST);
+$db->store("tasks",$data);
 
 header("Location: index.php"); exit;
 
